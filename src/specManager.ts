@@ -199,9 +199,20 @@ export async function parseSpec(filePath: string): Promise<Spec> {
     
     return spec as Spec;
   } catch (error) {
+    // Handle YAML parsing errors with line numbers
     if (error instanceof yaml.YAMLException) {
-      throw new Error(`YAML parsing error: ${error.message}`);
+      const yamlError = error as yaml.YAMLException;
+      const lineInfo = yamlError.mark ? ` at line ${yamlError.mark.line + 1}, column ${yamlError.mark.column + 1}` : '';
+      console.error(`YAML parsing error${lineInfo}: ${yamlError.reason}`);
+      throw new Error(`YAML parsing error${lineInfo}: ${yamlError.reason}`);
     }
+    
+    // Handle validation errors
+    if (error instanceof Error) {
+      console.error(`Spec validation error: ${error.message}`);
+    }
+    
+    // Rethrow the error
     throw error;
   }
 }
