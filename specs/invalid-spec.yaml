@@ -1,0 +1,29 @@
+# Invalid spec for testing validation
+
+aider_config:
+  # Missing model field
+  architect_mode: false
+  editable_files: []
+  readonly_files: []
+  retries: "not a number" # Invalid type
+
+objective: |
+  This is the objective.
+
+# Missing implementation_details
+
+tasks:
+  - name: "task-1"
+    # Missing prompt field
+    evaluation:
+      # Invalid evaluation type
+      type: "invalid-type"
+      
+  - # Missing name field
+    prompt: "This is a task prompt"
+    
+  - name: "task-3"
+    prompt: "This is a task with command evaluation"
+    evaluation:
+      type: "command"
+      # Missing command and check_prompt fields

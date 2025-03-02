@@ -1,0 +1,41 @@
+# Automated Development Task Manager - Spec Template
+# Generated on: 2025-03-02T06:53:40.781Z
+
+aider_config:
+  model: '' # Specify the AI model to use (e.g., 'gpt-4')
+  architect_mode: false # Set to true for high-level architectural guidance
+  editable_files: [] # List of files Aider can modify (e.g., ['src/*.js'])
+  readonly_files: [] # List of files Aider can read but not modify (e.g., ['docs/*.md'])
+  retries: 10 # Number of retry attempts for failed tasks
+  test_command: '' # Optional command to run tests (e.g., 'npm test')
+
+objective: |
+  # Describe the high-level goal here.
+  # Example: Implement a REST API for user management with authentication.
+
+implementation_details: |
+  # Add technical notes and requirements here.
+  # Example: Use Express.js for routing, JWT for authentication, and MongoDB for storage.
+  # Include any specific constraints or dependencies that apply to all tasks.
+
+tasks:
+  - name: 'task-1'
+    done: false # The tool will mark this as true when completed
+    prompt: |
+      # Describe what to do for this task.
+      # Be specific about the requirements and expected outcome.
+      # Example: Create a user registration endpoint at POST /api/users that validates
+      # email and password, hashes the password, and stores the user in MongoDB.
+
+  - name: 'generate-documentation'
+    done: false
+    prompt: |
+      # Generate documentation for the following code:
+      # - Target file/component: [specify target]
+      # - Documentation style: [specify style, e.g., JSDoc, Markdown]
+      # - Required sections: [list sections like Overview, API, Examples]
+      # - Output location: [specify where docs should be saved]
+    evaluation:
+      type: 'command'
+      command: 'node validate-docs.js'
+      check_prompt: 'Does the documentation follow the required format and cover all specified sections?'

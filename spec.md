@@ -15,16 +15,19 @@ The **Automated Development Task Manager** is a terminal-based application desig
 ### Functional Requirements
 
 1. **Specification Template Generation:**
+
    - Generate a YAML template for users to define tasks.
    - Support presets for common task types (e.g., "generate a function," "write unit tests," "create API docs").
 
 2. **Specification Execution:**
+
    - Parse and execute a user-filled YAML spec file.
    - Create a new worktree and branch named after the spec file using Jujutsu (`jj`) or Git if `jj` isn’t initialized.
    - Run tasks using Aider with configurations from the spec.
    - Retry failed tasks up to a customizable limit (default: 10), stopping with an error if exceeded.
 
 3. **Lessons Learned Logging:**
+
    - Automatically generate lessons about unexpected issues or corrections after execution.
    - Use a language model to analyze execution data and write entries to `LESSONS.md`.
 
@@ -45,7 +48,7 @@ The **Automated Development Task Manager** is a terminal-based application desig
 
 - **Runtime:** Bun (JavaScript) for fast execution and built-in file system APIs.
 - **Version Control:** Jujutsu (`jj`) for worktree/branch management; Git as fallback.
-- **Data Storage:** 
+- **Data Storage:**
   - YAML files for specifications (stored in a `specs/` directory).
   - Markdown file (`LESSONS.md`) for lessons learned.
 - **External Tools:** Aider for task execution, integrated via command-line spawning.
@@ -53,17 +56,21 @@ The **Automated Development Task Manager** is a terminal-based application desig
 ### Components
 
 1. **CLI Interface:**
+
    - Commands: `generate <spec-name>` (create YAML template), `run <spec-file>` (execute spec), `cleanup <spec-name>` (remove branch/worktree).
 
 2. **Spec Manager:**
+
    - Generates YAML templates with presets.
    - Parses and validates user-filled spec files.
 
 3. **Version Control Manager:**
+
    - Detects `jj` or Git usage.
    - Creates and manages worktrees/branches.
 
 4. **Task Executor:**
+
    - Concatenates spec sections for Aider.
    - Runs tasks with retry logic and evaluation.
 
@@ -124,18 +131,22 @@ tasks:
 ### Concatenation for Aider
 
 For each task, the tool concatenates:
+
 ```
 Objective: <objective text>
 Technical Notes: <implementation_details text>
 Task Prompt: <task prompt text>
 ```
+
 Passed as a single input to Aider with clear labels for context.
 
 ### LESSONS.md Format
 
 Entries are appended as Markdown:
+
 ```markdown
 ## <spec-name> - <timestamp>
+
 - **Task:** <task-name>
 - **Lesson:** <language model-generated text about unexpected issues or corrections>
 ```
@@ -145,17 +156,21 @@ Entries are appended as Markdown:
 ## Error Handling Strategies
 
 1. **YAML Parsing Errors:**
+
    - Validate spec structure (required fields: `aider_config`, `objective`, `tasks`).
    - Throw descriptive error with line number if invalid.
 
 2. **Version Control Failures:**
+
    - If `jj` or Git commands fail (e.g., repo not initialized), log error and exit with a user-friendly message.
 
 3. **Task Execution Failures:**
+
    - Retry up to the specified limit (default 10).
    - On exceeding retries, stop execution, log the failure, and raise an error with the task name and retry count.
 
 4. **Aider Integration Issues:**
+
    - Catch spawn errors (e.g., Aider not installed) and suggest installation steps.
 
 5. **Lessons Generation Failures:**
@@ -168,14 +183,17 @@ Entries are appended as Markdown:
 ### Unit Tests
 
 1. **Spec Manager:**
+
    - Test YAML template generation with presets.
    - Test parsing and validation of valid/invalid specs.
 
 2. **Version Control Manager:**
+
    - Test branch/worktree creation with `jj` in a mock repo.
    - Test Git fallback in a non-`jj` repo.
 
 3. **Task Executor:**
+
    - Mock Aider runs to verify concatenation and retry logic.
    - Test evaluation types (test command, custom command).
 
@@ -185,6 +203,7 @@ Entries are appended as Markdown:
 ### Integration Tests
 
 1. **Full Workflow:**
+
    - Generate a spec, fill it, run it in a test repo, and verify branch creation, task execution, and `LESSONS.md` updates.
    - Test failure case (exceed retries) and ensure error is raised.
 
@@ -206,7 +225,3 @@ Entries are appended as Markdown:
 - **Language Model:** Assume xAI’s API (or similar) for lessons generation; include a configurable endpoint.
 - **Presets:** Hardcode initial presets (e.g., "function generation," "unit test creation") in `src/presets.js`.
 - **Dependencies:** `js-yaml` for parsing, no SQLite unless future persistence is needed.
-
----
-
-This specification provides everything a developer needs to start building the Automated Development Task Manager. It’s detailed, actionable, and covers edge cases, ensuring a smooth handoff. Let me know if you’d like any adjustments!

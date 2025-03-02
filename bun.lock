@@ -12,6 +12,7 @@
         "chalk": "^5.4.1",
         "cli-highlight": "^2.1.11",
         "cli-table3": "^0.6.5",
+        "js-yaml": "^4.1.0",
         "marked": "^15.0.7",
         "marked-terminal": "^7.3.0",
       },

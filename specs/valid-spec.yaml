@@ -1,0 +1,32 @@
+# Valid spec for testing validation
+
+aider_config:
+  model: "gpt-4"
+  architect_mode: false
+  editable_files: ["src/*.ts"]
+  readonly_files: ["*.md"]
+  retries: 5
+  test_command: "bun test"
+
+objective: |
+  Implement a feature to parse and validate YAML specs.
+
+implementation_details: |
+  Use js-yaml for parsing and implement thorough validation.
+
+tasks:
+  - name: "implement-parsing"
+    done: false
+    prompt: |
+      Implement the parseSpec function to read and parse YAML files.
+    evaluation:
+      type: "test"
+      
+  - name: "implement-validation"
+    done: false
+    prompt: |
+      Implement validation for the parsed YAML structure.
+    evaluation:
+      type: "command"
+      command: "bun run validate-test.js"
+      check_prompt: "Does the validation correctly identify all required fields?"
