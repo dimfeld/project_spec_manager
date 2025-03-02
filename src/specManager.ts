@@ -295,13 +295,19 @@ function mergeAiderConfig(
   // Merge arrays if spec config has them defined
   if (specConfig.editable_files) {
     result.editable_files = [
-      ...new Set([...projectSettings.aider_config.editable_files, ...specConfig.editable_files]),
+      ...new Set([
+        ...(projectSettings.aider_config.editable_files ?? []),
+        ...specConfig.editable_files,
+      ]),
     ];
   }
 
   if (specConfig.readonly_files) {
     result.readonly_files = [
-      ...new Set([...projectSettings.aider_config.readonly_files, ...specConfig.readonly_files]),
+      ...new Set([
+        ...(projectSettings.aider_config.readonly_files ?? []),
+        ...specConfig.readonly_files,
+      ]),
     ];
   }
 
@@ -426,7 +432,7 @@ const CompleteAiderConfigSchema = z.object({
 const AiderConfigSchema = z.object({
   model: z.string().min(1, 'Model name cannot be empty').optional(),
   architect_mode: z.boolean().optional(),
-  editable_files: z.array(z.string()).optional(),
+  editable_files: z.array(z.string()),
   readonly_files: z.array(z.string()).optional(),
   retries: z.number().int().nonnegative('Retries must be a non-negative number').optional(),
   test_command: z.string().optional(),
@@ -436,7 +442,7 @@ const AiderConfigSchema = z.object({
  * Zod schema for the complete spec
  */
 const SpecSchema = z.object({
-  aider_config: AiderConfigSchema.optional(),
+  aider_config: AiderConfigSchema,
   objective: z.string(),
   implementation_details: z.string(),
   tasks: z.array(TaskSchema).min(1, 'At least one task is required'),
