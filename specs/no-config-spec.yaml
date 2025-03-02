@@ -1,0 +1,14 @@
+# Automated Development Task Manager - Spec Template
+# Generated for testing with no aider_config
+
+objective: |
+  Test spec with no aider_config.
+
+implementation_details: |
+  This spec has no aider_config and should use project settings.
+
+tasks:
+  - name: 'test-task'
+    done: false
+    prompt: |
+      This is a test task for a spec with no config.

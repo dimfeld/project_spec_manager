@@ -1,0 +1,21 @@
+# Automated Development Task Manager - Spec Template
+# Generated for testing config merging
+
+# Partial aider_config that will be merged with project settings
+aider_config:
+  model: 'gpt-4' # This should override the project settings
+  editable_files: 
+    - 'src/specManager.ts' # This should be merged with project settings
+  retries: 10 # This should override the project settings
+
+objective: |
+  Test spec for merging aider_config with project settings.
+
+implementation_details: |
+  This spec has a partial aider_config that should be merged with the project settings.
+
+tasks:
+  - name: 'test-task'
+    done: false
+    prompt: |
+      This is a test task for config merging.

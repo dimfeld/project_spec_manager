@@ -1,0 +1,14 @@
+# Project-level Aider configuration
+# This will be merged with individual spec files
+
+aider_config:
+  model: 'gpt-4-turbo'
+  architect_mode: false
+  editable_files: 
+    - 'src/**/*.ts'
+    - 'tests/**/*.ts'
+  readonly_files: 
+    - 'README.md'
+    - 'LICENSE'
+  retries: 5
+  test_command: 'bun test'
