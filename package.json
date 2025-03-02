@@ -1,0 +1,28 @@
+{
+  "name": "project_spec",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/bun": "latest",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.2",
+    "typescript-eslint": "^8.25.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.1.12",
+    "@ai-sdk/cerebras": "^0.1.12",
+    "@ai-sdk/groq": "^1.1.11",
+    "ai": "^4.1.47",
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "cli-highlight": "^2.1.11",
+    "cli-table3": "^0.6.5",
+    "marked": "^15.0.7",
+    "marked-terminal": "^7.3.0"
+  }
+}

@@ -1,0 +1,55 @@
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
+import globals from 'globals';
+
+const pedanticWarn = process.env.PEDANTIC ? 'warn' : 'off';
+
+export function createConfig() {
+  return [
+    {
+      ignores: ['**/build/', '**/dist/', '**/eslint.config.js'],
+    },
+    js.configs.recommended,
+    {
+      languageOptions: {
+        parser: ts.parser,
+        parserOptions: {
+          projectService: true,
+        },
+      },
+    },
+    ...ts.configs.recommendedTypeChecked,
+    {
+      languageOptions: {
+        globals: {
+          ...globals.browser,
+          ...globals.node,
+        },
+      },
+      rules: {
+        'no-unexpected-multiline': 'off',
+        'prefer-const': 'off',
+        '@typescript-eslint/no-misused-promises': 'error',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-unsafe-return': pedanticWarn,
+        '@typescript-eslint/no-unsafe-call': pedanticWarn,
+        '@typescript-eslint/no-unsafe-member-access': pedanticWarn,
+        '@typescript-eslint/no-unsafe-assignment': pedanticWarn,
+        '@typescript-eslint/no-unsafe-argument': pedanticWarn,
+        '@typescript-eslint/no-unsafe-return': pedanticWarn,
+        '@typescript-eslint/no-explicit-any': pedanticWarn,
+        '@typescript-eslint/require-await': pedanticWarn,
+        // Doesn't work properly with zod's z.infer
+        '@typescript-eslint/no-redundant-type-constituents': 'off',
+        '@typescript-eslint/no-floating-promises': [
+          'error',
+          {
+            allowForKnownSafeCalls: [],
+          },
+        ],
+      },
+    },
+  ].filter((x) => x != null);
+}
+
+export default ts.config(...createConfig());
